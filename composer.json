@@ -1,0 +1,28 @@
+{
+  "name": "davispeixoto/php-batch",
+  "description": "A framework for PHP batch processing",
+  "keywords": [
+    "php",
+    "batch processing",
+    "offline processing"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Davis Peixoto",
+      "email": "davis.peixoto@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Davispeixoto\\PhpBatch\\": "src/Davispeixoto/PhpBatch"
+    }
+  },
+  "minimum-stability": "dev"
+}
