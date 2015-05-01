@@ -9,6 +9,7 @@
 namespace Davispeixoto\PhpBatch\Contracts;
 
 
-interface WriterContract {
+interface WriterContract
+{
 
 }

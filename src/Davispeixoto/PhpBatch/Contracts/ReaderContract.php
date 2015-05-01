@@ -9,6 +9,7 @@
 namespace Davispeixoto\PhpBatch\Contracts;
 
 
-interface ReaderContract {
+interface ReaderContract
+{
 
 }

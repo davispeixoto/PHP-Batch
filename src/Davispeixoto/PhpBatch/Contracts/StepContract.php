@@ -9,6 +9,7 @@
 namespace Davispeixoto\PhpBatch\Contracts;
 
 
-interface StepContract {
+interface StepContract
+{
 
 }
