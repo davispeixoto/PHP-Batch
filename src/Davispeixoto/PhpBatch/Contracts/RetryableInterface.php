@@ -1,15 +1,15 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: dave
- * Date: 4/30/15
- * Time: 5:25 PM
+ * User: Dave
+ * Date: 01/05/2015
+ * Time: 04:15
  */
 
 namespace Davispeixoto\PhpBatch\Contracts;
 
 
-interface TransformContract
+interface RetryableInterface
 {
 
 }

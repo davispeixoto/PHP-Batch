@@ -3,13 +3,13 @@
  * Created by PhpStorm.
  * User: Dave
  * Date: 01/05/2015
- * Time: 04:16
+ * Time: 04:17
  */
 
 namespace Davispeixoto\PhpBatch\Contracts;
 
 
-interface LoggerContract
+interface JobConfigInterface
 {
 
 }

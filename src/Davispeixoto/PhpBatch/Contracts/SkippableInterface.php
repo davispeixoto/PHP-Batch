@@ -9,7 +9,7 @@
 namespace Davispeixoto\PhpBatch\Contracts;
 
 
-interface Skippable
+interface SkippableInterface
 {
 
 }
