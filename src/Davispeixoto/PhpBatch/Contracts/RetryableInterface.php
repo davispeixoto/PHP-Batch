@@ -8,8 +8,13 @@
 
 namespace Davispeixoto\PhpBatch\Contracts;
 
+use Exception;
 
 interface RetryableInterface
 {
-
+    /**
+     * @param Exception $exceptionName
+     * @return mixed
+     */
+    public function retryOn(Exception $exceptionName);
 }

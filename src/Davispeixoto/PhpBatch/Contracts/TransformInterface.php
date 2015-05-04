@@ -8,8 +8,13 @@
 
 namespace Davispeixoto\PhpBatch\Contracts;
 
-
 interface TransformInterface
 {
-
+    /**
+     * @param mixed $from
+     * @param mixed $to
+     * @param ItemInterface $item
+     * @return mixed
+     */
+    public function transform($from, $to, ItemInterface $item);
 }

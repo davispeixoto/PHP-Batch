@@ -8,8 +8,14 @@
 
 namespace Davispeixoto\PhpBatch\Contracts;
 
+use Exception;
 
 interface SkippableInterface
 {
+    /**
+     * @param Exception $exceptionName
+     * @return mixed
+     */
+    public function skipOn(Exception $exceptionName);
 
 }
