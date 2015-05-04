@@ -4,6 +4,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/davispeixoto/php-batch.svg)](https://packagist.org/packages/davispeixoto/php-batch)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/davispeixoto/PHP-Batch/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/davispeixoto/PHP-Batch/?branch=master)
 [![Codacy Badge](https://www.codacy.com/project/badge/647d1940502f4851bc2ab72e3245d0d0)](https://www.codacy.com/app/davis-peixoto/PHP-Batch)
+[![Code Climate](https://codeclimate.com/github/davispeixoto/PHP-Batch/badges/gpa.svg)](https://codeclimate.com/github/davispeixoto/PHP-Batch)
 [![Build Status](https://travis-ci.org/davispeixoto/PHP-Batch.svg?branch=master)](https://travis-ci.org/davispeixoto/PHP-Batch)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/2418f5cc-d643-40fd-8d81-5f883845f5ef/small.png)](https://insight.sensiolabs.com/projects/2418f5cc-d643-40fd-8d81-5f883845f5ef)
 
