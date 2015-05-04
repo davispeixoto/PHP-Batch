@@ -1,10 +1,5 @@
 # TO-DO
 
-- Sign Services
-    - Codacy
-    - Sensiolabs Insights
-    - Travis
-- Put git shields into readme (shields.io)
 - Write tests
     - PHPUnit
     - PHPSpec (?)
@@ -23,3 +18,5 @@
     - http://api.symfony.com/2.3/Symfony/Component/Process/Process.html
     - http://php-and-symfony.matthiasnoback.nl/2014/03/test-symfony2-commands-using-the-process-component-and-asynchronous-assertions/
     - http://symfony2-document.readthedocs.org/en/latest/components/process.html
+    
+Job -> Step(s) -> Worker(s) -> Task/Transaction(s) -> Item(s)
