@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="PHP-Batch" default="build">
+    <!-- ============================================  -->
+    <!-- Target: build                                 -->
+    <!-- ============================================  -->
+    <target name="build">
+        <echo msg="Starting the build..." />
+
+        <exec command="box build" dir="." checkreturn="true" />
+
+        <echo msg="Done!" />
+    </target>
+</project>
