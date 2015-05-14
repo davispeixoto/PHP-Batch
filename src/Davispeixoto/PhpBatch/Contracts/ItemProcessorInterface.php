@@ -4,6 +4,7 @@
  * Interface ItemProcessorInterface
  * @package Davispeixoto\PhpBatch\Contracts
  */
+use stdClass;
 
 /**
  * Created by Davis Peixoto <davis.peixoto@gmail.com>.
@@ -14,5 +15,9 @@
 
 interface ItemProcessorInterface
 {
-    public function process();
+    /**
+     * @param mixed $item
+     * @return mixed
+     */
+    public function process($item);
 }
