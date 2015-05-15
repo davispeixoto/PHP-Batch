@@ -1,13 +1,16 @@
-<?php
+<?php namespace Davispeixoto\PhpBatch\Formatter;
+
+    /**
+     * Class InputFormatter
+     * @package Davispeixoto\PhpBatch\Formatter
+     */
+
 /**
- * Created by PhpStorm.
- * User: dave
- * Date: 5/4/15
- * Time: 4:20 PM
+ * Created by Davis Peixoto <davis.peixoto@gmail.com>.
+ * Date: 5/14/15
+ * Time: 4:18 PM
+ * Powered By PhpStorm
  */
-
-namespace Davispeixoto\PhpBatch\Formatter;
-
 
 class InputFormatter
 {

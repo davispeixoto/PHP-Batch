@@ -1,9 +1,9 @@
 <?php namespace Davispeixoto\PhpBatch\Contracts;
 
-/**
- * Interface ItemReaderInterface
- * @package Davispeixoto\PhpBatch\Contracts
- */
+    /**
+     * Interface ItemReaderInterface
+     * @package Davispeixoto\PhpBatch\Contracts
+     */
 
 /**
  * Created by Davis Peixoto <davis.peixoto@gmail.com>.
@@ -13,5 +13,5 @@
  */
 interface ItemReaderInterface
 {
-
+    public function read();
 }

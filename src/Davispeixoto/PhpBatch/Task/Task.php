@@ -1,13 +1,16 @@
-<?php
+<?php namespace Davispeixoto\PhpBatch\Task;
+
+    /**
+     * Class Task
+     * @package Davispeixoto\PhpBatch\Task
+     */
+
 /**
- * Created by PhpStorm.
- * User: Dave
- * Date: 01/05/2015
- * Time: 04:21
+ * Created by Davis Peixoto <davis.peixoto@gmail.com>.
+ * Date: 5/14/15
+ * Time: 3:46 PM
+ * Powered By PhpStorm
  */
-
-namespace Davispeixoto\PhpBatch\Task;
-
 
 class Task
 {

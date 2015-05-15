@@ -1,13 +1,16 @@
-<?php
+<?php namespace Davispeixoto\PhpBatch\Worker;
+
+    /**
+     * Class Worker
+     * @package Davispeixoto\PhpBatch\Worker
+     */
+
 /**
- * Created by PhpStorm.
- * User: Dave
- * Date: 01/05/2015
- * Time: 04:21
+ * Created by Davis Peixoto <davis.peixoto@gmail.com>.
+ * Date: 5/14/15
+ * Time: 6:27 PM
+ * Powered By PhpStorm
  */
-
-namespace Davispeixoto\PhpBatch\Worker;
-
 
 class Worker
 {

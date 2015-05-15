@@ -1,13 +1,16 @@
-<?php
+<?php namespace Davispeixoto\PhpBatch\Contracts;
+
+    /**
+     * Interface ItemReaderInterface
+     * @package Davispeixoto\PhpBatch\Contracts
+     */
+
 /**
- * Created by PhpStorm.
- * User: dave
- * Date: 4/30/15
- * Time: 5:19 PM
+ * Created by Davis Peixoto <davis.peixoto@gmail.com>.
+ * Date: 5/14/15
+ * Time: 6:27 PM
+ * Powered By PhpStorm
  */
-
-namespace Davispeixoto\PhpBatch\Contracts;
-
 
 interface JobInterface
 {

@@ -1,10 +1,9 @@
 <?php namespace Davispeixoto\PhpBatch\Contracts;
 
-/**
- * Interface ItemProcessorInterface
- * @package Davispeixoto\PhpBatch\Contracts
- */
-use stdClass;
+    /**
+     * Interface ItemProcessorInterface
+     * @package Davispeixoto\PhpBatch\Contracts
+     */
 
 /**
  * Created by Davis Peixoto <davis.peixoto@gmail.com>.

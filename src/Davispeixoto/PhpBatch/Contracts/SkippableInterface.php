@@ -1,21 +1,24 @@
-<?php
+<?php namespace Davispeixoto\PhpBatch\Contracts;
+
+    /**
+     * Interface ItemReaderInterface
+     * @package Davispeixoto\PhpBatch\Contracts
+     */
+
 /**
- * Created by PhpStorm.
- * User: Dave
- * Date: 01/05/2015
- * Time: 04:14
+ * Created by Davis Peixoto <davis.peixoto@gmail.com>.
+ * Date: 5/14/15
+ * Time: 6:27 PM
+ * Powered By PhpStorm
  */
 
-namespace Davispeixoto\PhpBatch\Contracts;
-
-use Exception;
-
-interface SkippableInterface
+interface SkippableInterface extends StepInterface
 {
     /**
-     * @param Exception $exceptionName
-     * @return mixed
+     * @param string $exceptionName
+     * @param string $exceptionMessage
+     * @param int $exceptionCode
+     * @return void
      */
-    public function skipOn(Exception $exceptionName);
-
+    public function skipOn($exceptionName, $exceptionMessage = null, $exceptionCode = null);
 }

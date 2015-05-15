@@ -6,7 +6,7 @@
 [![Codacy Badge](https://www.codacy.com/project/badge/647d1940502f4851bc2ab72e3245d0d0)](https://www.codacy.com/app/davis-peixoto/PHP-Batch)
 [![Code Climate](https://codeclimate.com/github/davispeixoto/PHP-Batch/badges/gpa.svg)](https://codeclimate.com/github/davispeixoto/PHP-Batch)
 [![Build Status](https://travis-ci.org/davispeixoto/PHP-Batch.svg?branch=master)](https://travis-ci.org/davispeixoto/PHP-Batch)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/2418f5cc-d643-40fd-8d81-5f883845f5ef/small.png)](https://insight.sensiolabs.com/projects/2418f5cc-d643-40fd-8d81-5f883845f5ef)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/013928ff-8ebe-44f6-962c-be38a566e574/small.png)](https://insight.sensiolabs.com/projects/013928ff-8ebe-44f6-962c-be38a566e574)
 
 A framework for PHP batch processing
 

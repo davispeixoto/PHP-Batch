@@ -1,20 +1,36 @@
-<?php
+<?php namespace Davispeixoto\PhpBatch\Contracts;
+
+    /**
+     * Interface ItemReaderInterface
+     * @package Davispeixoto\PhpBatch\Contracts
+     */
+
 /**
- * Created by PhpStorm.
- * User: Dave
- * Date: 01/05/2015
- * Time: 04:15
+ * Created by Davis Peixoto <davis.peixoto@gmail.com>.
+ * Date: 5/14/15
+ * Time: 6:27 PM
+ * Powered By PhpStorm
  */
 
-namespace Davispeixoto\PhpBatch\Contracts;
-
-use Exception;
-
-interface RetryableInterface
+interface RetryableInterface extends StepInterface
 {
     /**
-     * @param Exception $exceptionName
-     * @return mixed
+     * @param string $exceptionName
+     * @param string $exceptionMessage
+     * @param int $exceptionCode
+     * @return void
      */
-    public function retryOn(Exception $exceptionName);
+    public function retryOn($exceptionName, $exceptionMessage = null, $exceptionCode = null);
+
+    /**
+     * @param int $time The milliseconds before each retry
+     * @return void
+     */
+    public function retryAfterInterval($time);
+
+    /**
+     * @param int $amount The max rey attempts before skip
+     * @return void
+     */
+    public function setMaxAttempts($amount);
 }

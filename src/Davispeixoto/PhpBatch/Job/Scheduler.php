@@ -1,13 +1,16 @@
-<?php
+<?php namespace Davispeixoto\PhpBatch\Job;
+
+    /**
+     * Class Scheduler
+     * @package Davispeixoto\PhpBatch\Job
+     */
+
 /**
- * Created by PhpStorm.
- * User: dave
- * Date: 5/4/15
- * Time: 4:20 PM
+ * Created by Davis Peixoto <davis.peixoto@gmail.com>.
+ * Date: 5/15/15
+ * Time: 10:42 AM
+ * Powered By PhpStorm
  */
-
-namespace Davispeixoto\PhpBatch\Job;
-
 
 class Scheduler
 {

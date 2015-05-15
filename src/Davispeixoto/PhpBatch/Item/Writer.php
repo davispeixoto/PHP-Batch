@@ -1,13 +1,16 @@
-<?php
+<?php namespace Davispeixoto\PhpBatch\Item;
+
+    /**
+     * Class Writer
+     * @package Davispeixoto\PhpBatch\Item
+     */
+
 /**
- * Created by PhpStorm.
- * User: Dave
- * Date: 01/05/2015
- * Time: 04:18
+ * Created by Davis Peixoto <davis.peixoto@gmail.com>.
+ * Date: 5/15/15
+ * Time: 10:42 AM
+ * Powered By PhpStorm
  */
-
-namespace Davispeixoto\PhpBatch\Item;
-
 
 class Writer
 {

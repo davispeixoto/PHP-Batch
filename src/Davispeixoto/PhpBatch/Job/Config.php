@@ -1,13 +1,16 @@
-<?php
+<?php namespace Davispeixoto\PhpBatch\Job;
+
+    /**
+     * Class Config
+     * @package Davispeixoto\PhpBatch\Job
+     */
+
 /**
- * Created by PhpStorm.
- * User: Dave
- * Date: 01/05/2015
- * Time: 04:19
+ * Created by Davis Peixoto <davis.peixoto@gmail.com>.
+ * Date: 5/15/15
+ * Time: 10:42 AM
+ * Powered By PhpStorm
  */
-
-namespace Davispeixoto\PhpBatch\Job;
-
 
 class Config
 {
