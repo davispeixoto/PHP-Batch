@@ -16,10 +16,13 @@ use Davispeixoto\PhpBatch\Contracts\ItemProcessorInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemReaderInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemWriterInterface;
 use Davispeixoto\PhpBatch\Contracts\RetryableInterface;
+use Davispeixoto\PhpBatch\Traits\ExceptionMatcher;
 use Exception;
 
 class RetryableStep implements RetryableInterface
 {
+    use ExceptionMatcher;
+
     /**
      * @var \Davispeixoto\PhpBatch\Contracts\ItemReaderInterface
      */
@@ -50,6 +53,8 @@ class RetryableStep implements RetryableInterface
      */
     private $maxAttempts;
 
+    private $attempts;
+
     public function __construct(
         ItemReaderInterface $reader,
         ItemWriterInterface $writer,
@@ -59,8 +64,9 @@ class RetryableStep implements RetryableInterface
         $this->writer = $writer;
         $this->processor = $processor;
         $this->retryableExceptions = array();
-        $this->maxAttempts = 0;
+        $this->maxAttempts = 1;
         $this->retryAfter = 1000;
+        $this->attempts = 0;
     }
 
     /**
@@ -70,18 +76,26 @@ class RetryableStep implements RetryableInterface
     {
         try {
             foreach ($this->reader->read() as $item) {
-                try {
-                    $this->writer->write($this->processor->process($item));
-                } catch (Exception $e) {
-                    if ($this->isRetryable($e)) {
-                        continue;
-                    } else {
-                        throw $e;
-                    }
-                }
+                $this->attempts = 0;
+                $this->runItem($item);
             }
         } catch (Exception $e) {
             throw $e;
+        }
+    }
+
+    public function runItem($item)
+    {
+        try {
+            $this->attempts += 1;
+            $this->writer->write($this->processor->process($item));
+        } catch (Exception $e) {
+            if ($this->matchException($e, $this->retryableExceptions) && $this->attempts < $this->maxAttempts) {
+                usleep($this->retryAfter * 1000);
+                $this->runItem($item);
+            } else {
+                throw $e;
+            }
         }
     }
 
@@ -94,79 +108,6 @@ class RetryableStep implements RetryableInterface
     {
         $exceptionEntry = array('name' => $exceptionName, 'code' => $code, 'message' => $message);
         $this->retryableExceptions[] = $exceptionEntry;
-    }
-
-
-    /**
-     * @param Exception $e
-     * @return bool
-     */
-    private function isRetryable(Exception $e)
-    {
-        $incomingException = array('name' => get_class($e), 'code' => $e->getCode(), 'message' => $e->getMessage());
-
-        foreach ($this->retryableExceptions as $exceptionEntry) {
-            if ($this->exceptionTypeMatch($incomingException['name'], $exceptionEntry['name'])
-                &&
-                $this->exceptionCodeMatch($incomingException['name'], $exceptionEntry['name'])
-                &&
-                $this->exceptionMessageMatch($incomingException['message'], $exceptionEntry['message'])
-            ) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @param string $compare
-     * @param string $base
-     * @return bool
-     */
-    private function exceptionTypeMatch($compare, $base)
-    {
-        if ($compare === $base) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param int $compare
-     * @param int|null $base
-     * @return bool
-     */
-    private function exceptionCodeMatch($compare, $base)
-    {
-        if (is_null($base)) {
-            return true;
-        }
-
-        if ($compare == $base) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param string $compare
-     * @param string|null $base
-     * @return bool
-     */
-    private function exceptionMessageMatch($compare, $base)
-    {
-        if (is_null($base)) {
-            return true;
-        }
-
-        if ($compare == $base) {
-            return true;
-        }
-
-        return false;
     }
 
     public function retryAfterInterval($time)

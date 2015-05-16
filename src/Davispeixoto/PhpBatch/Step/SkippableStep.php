@@ -16,10 +16,13 @@ use Davispeixoto\PhpBatch\Contracts\ItemProcessorInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemReaderInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemWriterInterface;
 use Davispeixoto\PhpBatch\Contracts\SkippableInterface;
+use Davispeixoto\PhpBatch\Traits\ExceptionMatcher;
 use Exception;
 
 class SkippableStep implements SkippableInterface
 {
+    use ExceptionMatcher;
+
     /**
      * @var \Davispeixoto\PhpBatch\Contracts\ItemReaderInterface
      */
@@ -61,7 +64,7 @@ class SkippableStep implements SkippableInterface
                 try {
                     $this->writer->write($this->processor->process($item));
                 } catch (Exception $e) {
-                    if ($this->isSkippable($e)) {
+                    if ($this->matchException($e, $this->skippedExceptions)) {
                         continue;
                     } else {
                         throw $e;
@@ -82,77 +85,5 @@ class SkippableStep implements SkippableInterface
     {
         $exceptionEntry = array('name' => $exceptionName, 'code' => $code, 'message' => $message);
         $this->skippedExceptions[] = $exceptionEntry;
-    }
-
-    /**
-     * @param Exception $e
-     * @return bool
-     */
-    private function isSkippable(Exception $e)
-    {
-        $incomingException = array('name' => get_class($e), 'code' => $e->getCode(), 'message' => $e->getMessage());
-
-        foreach ($this->skippedExceptions as $exceptionEntry) {
-            if ($this->exceptionTypeMatch($incomingException['name'], $exceptionEntry['name'])
-                &&
-                $this->exceptionCodeMatch($incomingException['name'], $exceptionEntry['name'])
-                &&
-                $this->exceptionMessageMatch($incomingException['message'], $exceptionEntry['message'])
-            ) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * @param string $compare
-     * @param string $base
-     * @return bool
-     */
-    private function exceptionTypeMatch($compare, $base)
-    {
-        if ($compare === $base) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param int $compare
-     * @param int|null $base
-     * @return bool
-     */
-    private function exceptionCodeMatch($compare, $base)
-    {
-        if (is_null($base)) {
-            return true;
-        }
-
-        if ($compare == $base) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @param string $compare
-     * @param string|null $base
-     * @return bool
-     */
-    private function exceptionMessageMatch($compare, $base)
-    {
-        if (is_null($base)) {
-            return true;
-        }
-
-        if ($compare == $base) {
-            return true;
-        }
-
-        return false;
     }
 }

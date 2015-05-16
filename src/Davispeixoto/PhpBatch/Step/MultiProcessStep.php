@@ -15,10 +15,12 @@
 use Davispeixoto\PhpBatch\Contracts\ItemProcessorInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemReaderInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemWriterInterface;
+use Davispeixoto\PhpBatch\Contracts\RetryableInterface;
 use Davispeixoto\PhpBatch\Contracts\StepInterface;
+use Davispeixoto\PhpBatch\Traits\ExceptionMatcher;
 use Exception;
 
-class Step implements StepInterface
+class MultiProcessStep implements StepInterface
 {
     /**
      * @var \Davispeixoto\PhpBatch\Contracts\ItemReaderInterface
@@ -35,6 +37,11 @@ class Step implements StepInterface
      */
     private $processor;
 
+    /**
+     * @var int
+     */
+    private $processAmount;
+
     public function __construct(
         ItemReaderInterface $reader,
         ItemWriterInterface $writer,
@@ -43,6 +50,7 @@ class Step implements StepInterface
         $this->reader = $reader;
         $this->writer = $writer;
         $this->processor = $processor;
+        $this->processAmount = 1;
     }
 
     /**
@@ -52,10 +60,35 @@ class Step implements StepInterface
     {
         try {
             foreach ($this->reader->read() as $item) {
-                $this->writer->write($this->processor->process($item));
+                $this->attempts = 0;
+                $this->runItem($item);
             }
         } catch (Exception $e) {
             throw $e;
         }
+    }
+
+    public function runItem($item)
+    {
+        try {
+            $this->attempts += 1;
+            $this->writer->write($this->processor->process($item));
+        } catch (Exception $e) {
+            if ($this->matchException($e, $this->retryableExceptions) && $this->attempts < $this->maxAttempts) {
+                usleep($this->retryAfter * 1000);
+                $this->runItem($item);
+            } else {
+                throw $e;
+            }
+        }
+    }
+
+    /**
+     * Sets the maximum parallel process
+     * @param int $amount
+     */
+    public function setProcessAmount($amount)
+    {
+        $this->processAmount = $amount;
     }
 }
