@@ -16,28 +16,10 @@ use Davispeixoto\PhpBatch\Contracts\ItemProcessorInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemReaderInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemWriterInterface;
 use Davispeixoto\PhpBatch\Contracts\RetryableInterface;
-use Davispeixoto\PhpBatch\Traits\ExceptionMatcher;
 use Exception;
 
-class RetryableStep implements RetryableInterface
+class RetryableStep extends ExceptionMatcherStep implements RetryableInterface
 {
-    use ExceptionMatcher;
-
-    /**
-     * @var \Davispeixoto\PhpBatch\Contracts\ItemReaderInterface
-     */
-    private $reader;
-
-    /**
-     * @var \Davispeixoto\PhpBatch\Contracts\ItemWriterInterface
-     */
-    private $writer;
-
-    /**
-     * @var \Davispeixoto\PhpBatch\Contracts\ItemProcessorInterface
-     */
-    private $processor;
-
     /**
      * @var array
      */
@@ -60,9 +42,7 @@ class RetryableStep implements RetryableInterface
         ItemWriterInterface $writer,
         ItemProcessorInterface $processor
     ) {
-        $this->reader = $reader;
-        $this->writer = $writer;
-        $this->processor = $processor;
+        parent::__construct($reader, $writer, $processor);
         $this->retryableExceptions = array();
         $this->maxAttempts = 1;
         $this->retryAfter = 1000;

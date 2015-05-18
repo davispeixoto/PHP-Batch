@@ -12,38 +12,10 @@
  * Powered By PhpStorm
  */
 
-use Davispeixoto\PhpBatch\Contracts\ItemProcessorInterface;
-use Davispeixoto\PhpBatch\Contracts\ItemReaderInterface;
-use Davispeixoto\PhpBatch\Contracts\ItemWriterInterface;
-use Davispeixoto\PhpBatch\Contracts\StepInterface;
 use Exception;
 
-class Step implements StepInterface
+class Step extends AbstractStep
 {
-    /**
-     * @var \Davispeixoto\PhpBatch\Contracts\ItemReaderInterface
-     */
-    private $reader;
-
-    /**
-     * @var \Davispeixoto\PhpBatch\Contracts\ItemWriterInterface
-     */
-    private $writer;
-
-    /**
-     * @var \Davispeixoto\PhpBatch\Contracts\ItemProcessorInterface
-     */
-    private $processor;
-
-    public function __construct(
-        ItemReaderInterface $reader,
-        ItemWriterInterface $writer,
-        ItemProcessorInterface $processor
-    ) {
-        $this->reader = $reader;
-        $this->writer = $writer;
-        $this->processor = $processor;
-    }
 
     /**
      * @throws Exception

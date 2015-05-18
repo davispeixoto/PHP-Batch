@@ -16,28 +16,10 @@ use Davispeixoto\PhpBatch\Contracts\ItemProcessorInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemReaderInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemWriterInterface;
 use Davispeixoto\PhpBatch\Contracts\SkippableInterface;
-use Davispeixoto\PhpBatch\Traits\ExceptionMatcher;
 use Exception;
 
-class SkippableStep implements SkippableInterface
+class SkippableStep extends ExceptionMatcherStep implements SkippableInterface
 {
-    use ExceptionMatcher;
-
-    /**
-     * @var \Davispeixoto\PhpBatch\Contracts\ItemReaderInterface
-     */
-    private $reader;
-
-    /**
-     * @var \Davispeixoto\PhpBatch\Contracts\ItemWriterInterface
-     */
-    private $writer;
-
-    /**
-     * @var \Davispeixoto\PhpBatch\Contracts\ItemProcessorInterface
-     */
-    private $processor;
-
     /**
      * @var array
      */
@@ -48,9 +30,7 @@ class SkippableStep implements SkippableInterface
         ItemWriterInterface $writer,
         ItemProcessorInterface $processor
     ) {
-        $this->reader = $reader;
-        $this->writer = $writer;
-        $this->processor = $processor;
+        parent::__construct($reader, $writer, $processor);
         $this->skippedExceptions = array();
     }
 

@@ -1,9 +1,9 @@
 <?php namespace Davispeixoto\PhpBatch\Step;
 
-/**
- * Class Step
- * @package Davispeixoto\PhpBatch\Step
- */
+    /**
+     * Class Step
+     * @package Davispeixoto\PhpBatch\Step
+     */
 
 /**
  * Created by Davis Peixoto <davis.peixoto@gmail.com>.
@@ -15,9 +15,7 @@
 use Davispeixoto\PhpBatch\Contracts\ItemProcessorInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemReaderInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemWriterInterface;
-use Davispeixoto\PhpBatch\Contracts\RetryableInterface;
 use Davispeixoto\PhpBatch\Contracts\StepInterface;
-use Davispeixoto\PhpBatch\Traits\ExceptionMatcher;
 use Exception;
 
 class MultiProcessStep implements StepInterface
@@ -60,7 +58,6 @@ class MultiProcessStep implements StepInterface
     {
         try {
             foreach ($this->reader->read() as $item) {
-                $this->attempts = 0;
                 $this->runItem($item);
             }
         } catch (Exception $e) {
@@ -71,24 +68,10 @@ class MultiProcessStep implements StepInterface
     public function runItem($item)
     {
         try {
-            $this->attempts += 1;
             $this->writer->write($this->processor->process($item));
         } catch (Exception $e) {
-            if ($this->matchException($e, $this->retryableExceptions) && $this->attempts < $this->maxAttempts) {
-                usleep($this->retryAfter * 1000);
-                $this->runItem($item);
-            } else {
-                throw $e;
-            }
+            $this->runItem($item);
+            //throw $e;
         }
-    }
-
-    /**
-     * Sets the maximum parallel process
-     * @param int $amount
-     */
-    public function setProcessAmount($amount)
-    {
-        $this->processAmount = $amount;
     }
 }
