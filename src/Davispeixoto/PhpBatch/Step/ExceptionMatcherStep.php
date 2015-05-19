@@ -1,9 +1,9 @@
 <?php namespace Davispeixoto\PhpBatch\Step;
 
-/**
- * Class ExceptionMatcherStep
- * @package Davispeixoto\PhpBatch\Step
- */
+    /**
+     * Class ExceptionMatcherStep
+     * @package Davispeixoto\PhpBatch\Step
+     */
 
 /**
  * Created by Davis Peixoto <davis.peixoto@gmail.com>.
@@ -17,20 +17,24 @@ use Exception;
 abstract class ExceptionMatcherStep extends AbstractStep
 {
     /**
-     * @param Exception $e
+     * @param Exception $exception
      * @param array $theVector
      * @return bool
      */
-    protected function matchException(Exception $e, Array $theVector)
+    protected function matchException(Exception $exception, Array $theVector)
     {
-        $incomingException = array('name' => get_class($e), 'code' => $e->getCode(), 'message' => $e->getMessage());
+        $incomingException = array(
+            'name' => get_class($exception),
+            'code' => $exception->getCode(),
+            'message' => $exception->getMessage()
+        );
 
         foreach ($theVector as $exceptionEntry) {
             if ($this->exceptionTypeMatch($incomingException['name'], $exceptionEntry['name'])
                 &&
-                $this->exceptionCodeMatch($incomingException['name'], $exceptionEntry['name'])
+                $this->exceptionDetailMatch($incomingException['name'], $exceptionEntry['name'])
                 &&
-                $this->exceptionMessageMatch($incomingException['message'], $exceptionEntry['message'])
+                $this->exceptionDetailMatch($incomingException['message'], $exceptionEntry['message'])
             ) {
                 return true;
             }
@@ -54,35 +58,17 @@ abstract class ExceptionMatcherStep extends AbstractStep
     }
 
     /**
-     * @param int $compare
-     * @param int|null $base
-     * @return bool
-     */
-    protected function exceptionCodeMatch($compare, $base)
-    {
-        if (is_null($base)) {
-            return true;
-        }
-
-        if ($compare == $base) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * @param string $compare
      * @param string|null $base
      * @return bool
      */
-    protected function exceptionMessageMatch($compare, $base)
+    protected function exceptionDetailMatch($compare, $base)
     {
         if (is_null($base)) {
             return true;
         }
 
-        if ($compare == $base) {
+        if ($compare === $base) {
             return true;
         }
 

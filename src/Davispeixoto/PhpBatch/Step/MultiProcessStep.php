@@ -15,39 +15,27 @@
 use Davispeixoto\PhpBatch\Contracts\ItemProcessorInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemReaderInterface;
 use Davispeixoto\PhpBatch\Contracts\ItemWriterInterface;
-use Davispeixoto\PhpBatch\Contracts\StepInterface;
 use Exception;
+use Symfony\Component\Process\Process;
 
-class MultiProcessStep implements StepInterface
+class MultiProcessStep extends AbstractStep
 {
-    /**
-     * @var \Davispeixoto\PhpBatch\Contracts\ItemReaderInterface
-     */
-    private $reader;
-
-    /**
-     * @var \Davispeixoto\PhpBatch\Contracts\ItemWriterInterface
-     */
-    private $writer;
-
-    /**
-     * @var \Davispeixoto\PhpBatch\Contracts\ItemProcessorInterface
-     */
-    private $processor;
-
     /**
      * @var int
      */
     private $processAmount;
+
+    /**
+     * @var Process[]
+     */
+    private $processes;
 
     public function __construct(
         ItemReaderInterface $reader,
         ItemWriterInterface $writer,
         ItemProcessorInterface $processor
     ) {
-        $this->reader = $reader;
-        $this->writer = $writer;
-        $this->processor = $processor;
+        parent::__construct($reader, $writer, $processor);
         $this->processAmount = 1;
     }
 
@@ -57,21 +45,32 @@ class MultiProcessStep implements StepInterface
     public function run()
     {
         try {
-            foreach ($this->reader->read() as $item) {
-                $this->runItem($item);
+            for ($i = 0; $i < $this->processAmount; $i++) {
+                $this->processes[] = new Process('foo');
             }
+
+            $this->runProcesses();
         } catch (Exception $e) {
             throw $e;
         }
     }
 
-    public function runItem($item)
+    public function runProcesses()
     {
-        try {
-            $this->writer->write($this->processor->process($item));
-        } catch (Exception $e) {
-            $this->runItem($item);
-            //throw $e;
+        foreach ($this->processes as $process) {
+            try {
+                $process->start();
+            } catch (Exception $e) {
+                continue;
+            }
         }
+    }
+
+    /**
+     * @param int $amount
+     */
+    public function setProcessesQuantity($amount)
+    {
+        $this->processAmount = $amount;
     }
 }
